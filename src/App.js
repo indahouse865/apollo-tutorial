@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import { ApolloProvider } from '@apollo/react-hooks'
 import Post from './Posts/Post'
 import Posts from './Posts/Posts'
+import NewPost from './Posts/NewPost'
 
 
 const client = new ApolloClient({
@@ -23,22 +24,15 @@ function App() {
     <ApolloProvider client={client}>  
       <Router>
         <div className="App">
-          <header className="App-header">
+          <Link to={'/'}>
             <img src={logo} className="App-logo" alt="logo" />
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              >
-              Learn React
-            </a> 
-            <Switch>
-              <Route exact path="/" component={Posts}/>
-              <Route path="/post/:id" component={Post}/>
-            </Switch>
-          </header>
-
+          </Link>
+          <Link to={'/post/new'}>New Post Form</Link>
+          <Switch>
+            <Route exact path="/" component={Posts}/>
+            <Route exact path="/post/new" component={NewPost}/>
+            <Route path="/post/:id" component={Post}/>
+          </Switch>
         </div>
       </Router>
     </ApolloProvider>
