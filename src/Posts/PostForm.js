@@ -4,11 +4,14 @@ import PropTypes from 'prop-types';
 export default class PostForm extends Component {
 
     static propTypes = {
-        onSubmit: PropTypes.func.isRequired
+        onSubmit: PropTypes.func.isRequired,
+        post: PropTypes.object,
+        onSuccess: PropTypes.func
     }
 
     static defaultProps = {
-        post: {}
+        post: {},
+        onSuccess: () => {}
     }
 
     state = {
@@ -25,7 +28,7 @@ export default class PostForm extends Component {
 
     
     render() {
-        const { onSubmit } = this.props
+        const { onSubmit, onSuccess } = this.props
         const { title, body, id } = this.state
         return (
             <form onSubmit={(e) => {
@@ -37,16 +40,13 @@ export default class PostForm extends Component {
                         id
                     }
                 }).then(() => {
-                    this.setState({
-                        title: '',
-                        body: ''
-                    });
+                    onSuccess()
                 })
                 .catch(e => console.log(`Error is: ${e}`))
             }}>
                 <input type="text" onChange={this.handleInput} value={this.state.title} name="title" placeholder="title"/>
                 <textarea type="text" onChange={this.handleInput} value={this.state.body} name="body" placeholder="body"/> 
-                <button>Submit</button>
+                <button className="button">Submit</button>
             </form>   
         )
     }

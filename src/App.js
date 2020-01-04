@@ -1,6 +1,5 @@
 import React from 'react';
 import ApolloClient from 'apollo-boost';
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import { ApolloProvider } from '@apollo/react-hooks'
@@ -8,9 +7,16 @@ import Post from './Posts/Post'
 import Posts from './Posts/Posts'
 import NewPost from './Posts/NewPost'
 
+const defaultState = {
+  isEditMode: false,
+}
 
 const client = new ApolloClient({
-  uri: 'https://api-useast.graphcms.com/v1/ck294t2s134vc01hi2di9eldf/master'
+  uri: 'https://api-useast.graphcms.com/v1/ck294t2s134vc01hi2di9eldf/master',
+  clientState: {
+    defaults: defaultState,
+    resolvers: {}
+  }
 });
 
 
@@ -24,15 +30,18 @@ function App() {
     <ApolloProvider client={client}>  
       <Router>
         <div className="App">
-          <Link to={'/'}>
-            <img src={logo} className="App-logo" alt="logo" />
-          </Link>
-          <Link to={'/post/new'}>New Post Form</Link>
-          <Switch>
-            <Route exact path="/" component={Posts}/>
-            <Route exact path="/post/new" component={NewPost}/>
-            <Route path="/post/:id" component={Post}/>
-          </Switch>
+          <div className="App-header">
+            <h1>
+              <Link to={'/'} className="headerLink">GraphQL Tutorial</Link>
+            </h1>
+          </div>
+          <main>
+            <Switch>
+              <Route exact path="/" component={Posts}/>
+              <Route exact path="/post/new" component={NewPost}/>
+              <Route path="/post/:id" component={Post}/>
+            </Switch>
+          </main>
         </div>
       </Router>
     </ApolloProvider>

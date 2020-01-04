@@ -5,11 +5,6 @@ import { gql } from 'apollo-boost';
 
 export default class NewPost extends Component {
 
-    // state = {
-    //     title: '',
-    //     body: ''
-    // }
-
     render() {
         return (
             <div>
@@ -17,9 +12,12 @@ export default class NewPost extends Component {
                 <Mutation
                     mutation={NEW_POST}
                 >
-                    {createPost => (
-                        <PostForm onSubmit={createPost}/>
-                    )}
+                    {( createPost, result) => {
+                        const onSuccess = () => {
+                            this.props.history.push('/');
+                        }
+                        return <PostForm onSubmit={createPost} onSuccess={onSuccess}/>
+                    }}
                 </Mutation>
             </div>
         )
