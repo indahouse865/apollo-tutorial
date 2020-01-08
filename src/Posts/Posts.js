@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
-import { gql } from 'apollo-boost';
 import { Link } from 'react-router-dom'
+
+import postsQuery from './Query/Posts.graphql';
 
 export default class Posts extends Component {
     render() {
@@ -42,15 +43,3 @@ export default class Posts extends Component {
         )
     }
 }
-
-
-const postsQuery = gql`
-  query allPosts($skip: Int) {
-    posts(orderBy: createdAt_DESC, first: 3, skip: $skip ) {
-      id
-      title
-      body
-      createdAt
-    }
-  }
-`

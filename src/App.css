@@ -38,6 +38,15 @@ main {
   font-size: 1.6rem;
 }
 
+.Posts-Listing li  a{
+  text-decoration: none;
+  color: #020101e5
+}
+
+.Posts-Listing li a:hover{
+  text-decoration: underline;
+}
+
 input, textarea {
   width: 100%;
   margin-bottom: 1rem;
